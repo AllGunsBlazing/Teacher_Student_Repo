@@ -1,0 +1,49 @@
+<!--the purpose of this file is to extend to other html files  
+# this is the file we want to extend or to be inherited across all the html pages of the temapltes
+# order is important the bootswatch link must be at the top don't -->
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title> Student Repository </title>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+
+        <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css' %}">
+    </head>
+
+    <body>
+        
+        <!-- Create Navbar here -->
+        {% include 'webapp/navbar.html' %}
+        <div class="container">
+            <br>
+            
+            <!--notifocation messages-->
+            {% block content %}
+
+
+            {% endblock %}
+
+        </div>
+
+        <script src="{% static 'js/app.js' %}"></script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+      
+
+
+    </body>
+
+
+</html>
+
+ 
