@@ -25,7 +25,7 @@ def register(request):
             
             form.save()
 
-           # return redirect('')
+           return redirect('login')
            
     context = {'form':form}
     

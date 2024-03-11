@@ -7,6 +7,8 @@ urlpatterns = [
     path('',views.home, name=""),           # when creating an url keep , at the end 
 
     path('register', views.register, name="register"),
+    path('login', views.login, name="login"),
+
     
 
     
