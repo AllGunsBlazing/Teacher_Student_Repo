@@ -5,6 +5,10 @@ from .forms import CreateUserForm, LoginForms
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 
+from django.contrib.auth.decorators import login_required
+from .models import Record
+
+
 # - Homepage
 
 def home(request):
@@ -25,7 +29,7 @@ def register(request):
             
             form.save()
 
-           return redirect('login')
+            return redirect('login')
            
     context = {'form':form}
     
@@ -33,29 +37,68 @@ def register(request):
 
 # - LOGIN A USER
 
-    def login(request):
-        form = LoginForm()
+def login(request):
+    form = LoginForms()
+    
+    if request.method == "POST":
         
-        if request.method == "POST":
+        form = LoginForms(request, data=request.POST)
+        
+        if form.is_valid():
             
-            form = LoginForm(request, data=request.POST)
-            
-            if form.is_valid():
-                
-                username = request.POST.get('username')
-                password = request.POST.get('password')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
 
-                user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
                 
-                if user is not None:
-                    
-                    auth.login(request, user)
-                #    return redirect('')
-                
-                
+                auth.login(request, user)
+            
+                return redirect('dashboard')
+            
+            
     context = {'form': form}
 
     return render(request, 'webapp/login.html', context=context)
+
+
+# - Dashboard
+
+@login_required(login_url='login')
+def dashboard(request):
+    
+    
+    my_records = Record.objects.all()
+
+    context = {'records': my_records}
+    
+    return render(request,'webapp/dashboard.html', context=context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# User Logout 
+
+def user_logout(request): 
+    
+    auth.logout(request)
+    
+    return redirect("login")
+
+    
+
+
 
         
         
