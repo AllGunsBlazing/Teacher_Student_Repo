@@ -2,16 +2,17 @@
 
 {% block content %}
 
+<div class="container">
     <h5> welcome to dashboard page, {{ user }}! </h5>
     
     <hr>
-    <a class="btn btn-outline-primary btn-sm" href="{% url 'dashboard' %}">
-        Create a new record
-    </a>
-    
+   <a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
+    Create a new record
+</a>
+
     <hr>
 
-    <table class="table table-dark table-hover">
+    <table class="table table-hover mt-4">
 
         <thead class="table-dark">
             <tr>
@@ -23,7 +24,15 @@
                 <th scope="col">City</th>
                 <th scope="col">CGPA</th>
                 <th scope="col">Achievements</th>
-                <th scope="col">View</th>
+                <th scope="col">Internship</th>
+                <th scope="col">Placement</th>
+                <th scope="col">HigherStudies</th>
+                <th scope="col">Entreprenuership</th>
+                <th scope="col">ExtraCurricular</th>
+                <th scope="col">Publication</th>
+                <th scope="col">PractiseSchool</th>
+                <th scope="col">Conference</th>
+
             </tr>
         </thead>
 
@@ -33,12 +42,27 @@
                 {% for record in records %}
                     <tr>
                         <td>{{ record.id }}</td>
-                        <!-- Include other fields as necessary -->
+                        <td>{{ record.first_name}} {{record.last_name}}</td>
+                        <td> {{record.email}}   </td>
+                        <td> {{record.phone}}   </td>
+                        <td> {{record.address}}   </td>
+                        <td> {{record.city}}   </td>
+                        <td> {{record.cgpa}}   </td>
+                        <td> {{record.achievements}}  </td>
+                        <td> {{record.Internship}} </td>
+                        <td> {{record.Placement}} </td>
+                        <td> {{record.HigherStudies}} </td>
+                        <td> {{record.Entreprenuership}} </td>
+                        <td> {{record.ExtraCurricular}} </td>
+                        <td> {{record.Publication}} </td>
+                        <td> {{record.PractiseSchool}} </td>
+                        <td> {{record.Conference}} </td>
                     </tr>
                 {% endfor %}
             {% endif %}
 
         </tbody>
     </table>
+</div>
 
 {% endblock %}

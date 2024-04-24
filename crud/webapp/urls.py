@@ -12,9 +12,19 @@ urlpatterns = [
     
     path('user-logout',views.user_logout,name="user-logout"),
     
-    path('dashboard', views.dashboard,name="dashboard"),
     
     # route name should be same as views
+    
+    # CRUD
+    
+    path('dashboard', views.dashboard,name="dashboard"),
+    path('create-record', views.create_record,name="create-record"),
+    
+
+
+
+
+    
     
     
     
