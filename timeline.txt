@@ -1,0 +1,77 @@
+9th April 2024 - 3:02:29 
+{% extends "webapp/base.html" %}
+
+{% block content %}
+
+    <h5> welcome to dashboard page, {{ user }}! </h5>
+    
+    <hr>
+   <a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
+    Create a new record
+</a>
+
+    <hr>
+
+    <table class="table  table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">CGPA</th>
+                <th scope="col">Achievements</th>
+                <th scope="col">Internship</th>
+                <th scope="col">Placement</th>
+                <th scope="col">HigherStudies</th>
+                <th scope="col">Entreprenuership</th>
+                <th scope="col">ExtraCurricular</th>
+                <th scope="col">Publication</th>
+                <th scope="col">PractiseSchool</th>
+                <th scope="col">Conference</th>
+
+
+
+
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% if record %}
+                {% for record in record %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>{{ record.first_name}} {{record.last_name}}</td>
+                        <td> {{record.email}}   </td>
+                        <td> {{record.phone}}   </td>
+                        <td> {{record.address}}   </td>
+                        <td> {{record.city}}   </td>
+                        <td> {{record.cgpa}}   </td>
+                        <td> {{record.achievements}}  </td>
+                        <td> {{record.Internship}} </td>
+                        <td> {{record.Placement}} </td>
+                        <td> {{record.HigherStudies}} </td>
+                        <td> {{record.Entreprenuership}} </td>
+                        <td> {{record.ExtraCurricular}} </td>
+                        <td> {{record.Publication}} </td>
+                        <td> {{record.PractiseSchool}} </td>
+                        <td> {{record.Conference}} </td>
+                    
+                        <!-- Include other fields as necessary -->
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+5th June 2024

@@ -2,67 +2,211 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container-fluid">
     <h5> welcome to dashboard page, {{ user }}! </h5>
     
     <hr>
-   <a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
-    Create a new record
-</a>
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
+        Create a new record
+    </a>
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'fetch-sheets-data' %}">
+        Sync records
+    </a>
 
     <hr>
 
-    <table class="table table-hover mt-4">
+    <section>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?">All</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=achievement">Achievements</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=internship">Internship</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=placement">Placement</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=higher_studies">HigherStudies</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=entreprenuership">Entreprenuership</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=extra_curricular">ExtraCurricular</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=publications">Publication</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=practise_school">PractiseSchool</a></button>
+        <button class="btn btn-sm btn-secondary"><a class="link-dark" href="?filter=conference">Conference</a></button>
+    </section>
 
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Full name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Address</th>
-                <th scope="col">City</th>
-                <th scope="col">CGPA</th>
-                <th scope="col">Achievements</th>
-                <th scope="col">Internship</th>
-                <th scope="col">Placement</th>
-                <th scope="col">HigherStudies</th>
-                <th scope="col">Entreprenuership</th>
-                <th scope="col">ExtraCurricular</th>
-                <th scope="col">Publication</th>
-                <th scope="col">PractiseSchool</th>
-                <th scope="col">Conference</th>
+    <section class="w-100 overflow-auto">
+        <table class="table table-hover mt-4">
+    
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"><a class="link-light" href="?sort_by=id&sort_order={% if sort_by == 'id' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Id</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=first_name&sort_order={% if sort_by == 'first_name' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">First Name</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=last_name&sort_order={% if sort_by == 'last_name' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Last Name</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=email&sort_order={% if sort_by == 'email' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Email</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=phone&sort_order={% if sort_by == 'phone' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Phone</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=address&sort_order={% if sort_by == 'address' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Address</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=city&sort_order={% if sort_by == 'city' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">City</a></th>
+                    <th scope="col"><a class="link-light" href="?sort_by=cgpa&sort_order={% if sort_by == 'cgpa' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">CGPA</a></th>
+                    <th scope="col">Achievements</th>
+                    <th scope="col">Internship</th>
+                    <th scope="col">Placement</th>
+                    <th scope="col">HigherStudies</th>
+                    <th scope="col">Entreprenuership</th>
+                    <th scope="col">ExtraCurricular</th>
+                    <th scope="col">Publication</th>
+                    <th scope="col">PractiseSchool</th>
+                    <th scope="col">Conference</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% if records %}
+                    {% for record in records %}
+                        <tr class="record" data-bs-toggle="modal" 
+                            data-bs-target="#recordModal"
+                            data-record-id="{{ record.id }}"
+                            data-record-first-name="{{ record.first_name }}"
+                            data-record-last-name="{{ record.last_name }}"
+                            data-record-email="{{ record.email }}"
+                            data-record-phone="{{ record.phone }}"
+                            data-record-address="{{ record.address }}"
+                            data-record-city="{{ record.city }}"
+                            data-record-cgpa="{{ record.cgpa }}"
+                            data-record-achievement="{{ record.achievement }}"
+                            data-record-internship="{{ record.Internship }}"
+                            data-record-placement="{{ record.Placement }}"
+                            data-record-higher-studies="{{ record.HigherStudies }}"
+                            data-record-entreprenuership="{{ record.Entreprenuership }}"
+                            data-record-extra-curricular="{{ record.ExtraCurricular }}"
+                            data-record-publications="{{ record.Publications }}"
+                            data-record-practise-school="{{ record.PractiseSchool }}"
+                            data-record-conference="{{ record.Conference }}">
+                            <td>{{ record.id }}</td>
+                            <td>{{ record.first_name }}</td>
+                            <td>{{ record.last_name }}</td>
+                            <td>{{ record.email }}</td>
+                            <td>{{ record.phone }}</td>
+                            <td>{{ record.address }}</td>
+                            <td>{{ record.city }}</td>
+                            <td>{{ record.cgpa }}</td>
+                            <td class="record-form">
+                                {% if record.achievement %}
+                                    <a href="{{ record.achievement }}">{{ record.achievement }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'achievement' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.Internship %}
+                                    <a href="{{ record.Internship }}">{{ record.Internship }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'Internship' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.Placement %}
+                                    <a href="{{ record.Placement }}">{{ record.Placement }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'Placement' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.HigherStudies %}
+                                    <a href="{{ record.HigherStudies }}">{{ record.HigherStudies }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'HigherStudies' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.Entreprenuership %}
+                                    <a href="{{ record.Entreprenuership }}">{{ record.Entreprenuership }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'Entreprenuership' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.ExtraCurricular %}
+                                    <a href="{{ record.ExtraCurricular }}">{{ record.ExtraCurricular }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'ExtraCurricular' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.Publications %}
+                                    <a href="{{ record.Publications }}">{{ record.Publications }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'Publications' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.PractiseSchool %}
+                                    <a href="{{ record.PractiseSchool }}">{{ record.PractiseSchool }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'PractiseSchool' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td class="record-form">
+                                {% if record.Conference %}
+                                    <a href="{{ record.Conference }}">{{ record.Conference }}</a>
+                                {% else %}
+                                    <form action="{% url 'upload_file' record.id 'Conference' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="file" required>
+                                        <button type="submit">Upload</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
 
-            </tr>
-        </thead>
+</div>
 
-        <tbody>
-
-            {% if records %}
-                {% for record in records %}
-                    <tr>
-                        <td>{{ record.id }}</td>
-                        <td>{{ record.first_name}} {{record.last_name}}</td>
-                        <td> {{record.email}}   </td>
-                        <td> {{record.phone}}   </td>
-                        <td> {{record.address}}   </td>
-                        <td> {{record.city}}   </td>
-                        <td> {{record.cgpa}}   </td>
-                        <td> {{record.achievements}}  </td>
-                        <td> {{record.Internship}} </td>
-                        <td> {{record.Placement}} </td>
-                        <td> {{record.HigherStudies}} </td>
-                        <td> {{record.Entreprenuership}} </td>
-                        <td> {{record.ExtraCurricular}} </td>
-                        <td> {{record.Publication}} </td>
-                        <td> {{record.PractiseSchool}} </td>
-                        <td> {{record.Conference}} </td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-
-        </tbody>
-    </table>
+<!-- Modal -->
+<div class="modal fade" id="recordModal" tabindex="-1" aria-labelledby="recordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recordModalLabel">Record Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

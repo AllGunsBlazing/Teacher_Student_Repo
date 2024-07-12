@@ -18,23 +18,23 @@ class Record(models.Model):
     
     cgpa = models.IntegerField()     
 
-    achievement = models.CharField(max_length=200, default='none')
+    achievement = models.FileField(blank=True,null=True)
 
-    Internship = models.CharField(max_length=100, default='none')
+    Internship = models.FileField(blank=True,null=True)
     
-    Placement = models.CharField(max_length=200, default='none')
+    Placement = models.FileField(blank=True,null=True)
 
-    HigherStudies  = models.CharField(max_length=200, default='none')
+    HigherStudies  = models.FileField(blank=True,null=True)
     
-    Entreprenuership = models.CharField(max_length=200, default='none')
+    Entreprenuership = models.FileField(blank=True,null=True)
 
-    ExtraCurricular = models.CharField(max_length=200, default='none')
+    ExtraCurricular = models.FileField(blank=True,null=True)
 
-    Publications = models.CharField(max_length=200, default='none')
+    Publications = models.FileField(blank=True,null=True)
 
-    PractiseSchool = models.CharField(max_length=200, default='none')
+    PractiseSchool = models.FileField(blank=True,null=True)
 
-    Conference = models.CharField(max_length=200, default='none')
+    Conference = models.FileField(blank=True,null=True)
     def __str__(self):
         return self.first_name + "   " + self.last_name
 
